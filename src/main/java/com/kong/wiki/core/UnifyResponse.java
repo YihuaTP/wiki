@@ -1,4 +1,4 @@
-package com.kong.wiki.vo;
+package com.kong.wiki.core;
 
 import lombok.Getter;
 import lombok.Setter;
