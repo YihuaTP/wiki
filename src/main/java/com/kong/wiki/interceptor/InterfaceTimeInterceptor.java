@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  * 拦截器：Spring框架特有的，常用于登录校验，权限校验，请求日志打印
  * 使用拦截器结算接口耗时
  */
-@Component
+// @Component，使用拦截器了，直接注释注解，让Spring扫描不到就行了
 public class InterfaceTimeInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(InterfaceTimeInterceptor.class);
