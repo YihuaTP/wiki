@@ -8,6 +8,7 @@ import com.kong.wiki.service.BookService;
 import com.kong.wiki.vo.BookVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
-     * 根据名称模糊查询电子书
+     * 查询电子书信息，如果有名称信息，根据名称查模糊询电子书，没有则查询所有
      *
      * @param name
      * @return
@@ -47,10 +48,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookVO> getBookListByName(String name) {
         List<BookVO> list = new ArrayList<>();
+        List<Ebook> books = new ArrayList<>();
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria ebookExampleCriteria = ebookExample.createCriteria();
-        ebookExampleCriteria.andNameLike("%" + name + "%");
-        List<Ebook> books = bookMapper.selectByExample(ebookExample);
+        if (!ObjectUtils.isEmpty(name)) {
+            ebookExampleCriteria.andNameLike("%" + name + "%");
+        }
+        books = bookMapper.selectByExample(ebookExample);
         for (Ebook book : books) {
             BookVO bookVO = new BookVO();
             BeanUtils.copyProperties(book, bookVO);

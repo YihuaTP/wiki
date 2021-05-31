@@ -11,7 +11,7 @@ public interface BookService {
     // 查询所有的电子书
     List<BookVO> getBookList();
 
-    // 根据名称模糊查询电子书
+    // 查询电子书信息，如果有名称信息，根据名称查模糊询电子书，没有则查询所有
     List<BookVO> getBookListByName(String name);
 
     // 根据电子书信息查询对应的电子书
