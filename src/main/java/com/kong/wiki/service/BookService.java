@@ -1,21 +1,13 @@
 package com.kong.wiki.service;
 
 import com.kong.wiki.bo.BookBO;
-import com.kong.wiki.model.Ebook;
 import com.kong.wiki.vo.BookVO;
-
-import java.util.List;
+import com.kong.wiki.vo.PageVO;
 
 public interface BookService {
 
-    // 查询所有的电子书
-    List<BookVO> getBookList();
-
-    // 查询电子书信息，如果有名称信息，根据名称查模糊询电子书，没有则查询所有
-    List<BookVO> getBookListByName(String name);
-
-    // 根据电子书信息查询对应的电子书
-    List<BookVO> getBookListByInfo(BookBO book);
+    // 查找电子书list，可以分页，按照名称模糊查询
+    PageVO<BookVO> getBookListByInfo(BookBO book);
 
 
 

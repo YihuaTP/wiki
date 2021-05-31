@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookBO {
+public class BookBO extends PageBO{
     private Long id;
 
     private String name;

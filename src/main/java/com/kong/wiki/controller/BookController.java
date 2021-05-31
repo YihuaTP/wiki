@@ -1,13 +1,14 @@
 package com.kong.wiki.controller;
 
 import com.kong.wiki.bo.BookBO;
-import com.kong.wiki.model.Ebook;
-import com.kong.wiki.service.BookService;
 import com.kong.wiki.core.UnifyResponse;
+import com.kong.wiki.service.BookService;
 import com.kong.wiki.vo.BookVO;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import com.kong.wiki.vo.PageVO;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/book")
@@ -20,42 +21,15 @@ public class BookController {
     }
 
     /**
-     * 查询所有的电子书
-     *
-     * @return
-     */
-    @GetMapping("/list")
-    public UnifyResponse<List<BookVO>> getBookList() {
-        UnifyResponse<List<BookVO>> us = new UnifyResponse<>();
-        List<BookVO> books = bookService.getBookList();
-        us.setContent(books);
-        return us;
-    }
-
-    /**
-     * 查询电子书信息，如果有名称信息，根据名称查模糊询电子书，没有则查询所有
-     *
-     * @param name
-     * @return
-     */
-    @GetMapping("/{name}")
-    public UnifyResponse<List<BookVO>> getBookListByName(@PathVariable String name) {
-        UnifyResponse<List<BookVO>> us = new UnifyResponse<>();
-        List<BookVO> books = bookService.getBookListByName(name);
-        us.setContent(books);
-        return us;
-    }
-
-    /**
-     * 根据电子书信息查询对应的电子书
+     * 查找电子书list，可以分页，按照名称模糊查询
      *
      * @param book
      * @return
      */
     @GetMapping("/info")
-    public UnifyResponse<List<BookVO>> getBookByInfo(@RequestBody BookBO book) {
-        UnifyResponse<List<BookVO>> us = new UnifyResponse<>();
-        List<BookVO> books = bookService.getBookListByInfo(book);
+    public UnifyResponse<PageVO<BookVO>> getBookByInfo(BookBO book) {
+        UnifyResponse<PageVO<BookVO>> us = new UnifyResponse<>();
+        PageVO<BookVO> books = bookService.getBookListByInfo(book);
         us.setContent(books);
         return us;
     }
