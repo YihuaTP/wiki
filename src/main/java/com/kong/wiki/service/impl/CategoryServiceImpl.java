@@ -4,8 +4,8 @@ import com.kong.wiki.bo.CategoryBO;
 import com.kong.wiki.mapper.CategoryMapper;
 import com.kong.wiki.model.Category;
 import com.kong.wiki.model.CategoryExample;
-import com.kong.wiki.model.EbookExample;
 import com.kong.wiki.service.CategoryService;
+import com.kong.wiki.util.SnowFlake;
 import com.kong.wiki.vo.CategoryPureVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,11 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
+    private final SnowFlake snowFlake;
 
-    public CategoryServiceImpl(CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(CategoryMapper categoryMapper, SnowFlake snowFlake) {
         this.categoryMapper = categoryMapper;
+        this.snowFlake = snowFlake;
     }
 
     /**
@@ -73,6 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void insertCategory(CategoryBO categoryBO) {
         Category category = new Category();
         BeanUtils.copyProperties(categoryBO, category);
+        category.setId(snowFlake.nextId());
         categoryMapper.insert(category);
     }
 }
