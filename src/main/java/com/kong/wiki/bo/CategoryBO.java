@@ -1,14 +1,12 @@
-package com.kong.wiki.model;
+package com.kong.wiki.bo;
 
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-public class Category {
+public class CategoryBO {
 
     private Long id;
 

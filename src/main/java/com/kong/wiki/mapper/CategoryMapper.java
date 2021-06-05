@@ -3,9 +3,11 @@ package com.kong.wiki.mapper;
 import com.kong.wiki.model.Category;
 import com.kong.wiki.model.CategoryExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CategoryMapper {
 
     long countByExample(CategoryExample example);
