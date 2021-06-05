@@ -2,11 +2,12 @@ package com.kong.wiki.vo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-public class BookVO {
+public class BookPureVO {
+
+    private Long id;
 
     private String name;
 

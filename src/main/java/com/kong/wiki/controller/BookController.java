@@ -1,14 +1,12 @@
 package com.kong.wiki.controller;
 
 import com.kong.wiki.bo.BookBO;
+import com.kong.wiki.bo.BookOperationBO;
 import com.kong.wiki.core.UnifyResponse;
 import com.kong.wiki.service.BookService;
-import com.kong.wiki.vo.BookVO;
+import com.kong.wiki.vo.BookPureVO;
 import com.kong.wiki.vo.PageVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/book")
@@ -27,11 +25,47 @@ public class BookController {
      * @return
      */
     @GetMapping("/info")
-    public UnifyResponse<PageVO<BookVO>> getBookByInfo(BookBO book) {
-        UnifyResponse<PageVO<BookVO>> us = new UnifyResponse<>();
-        PageVO<BookVO> books = bookService.getBookListByInfo(book);
+    public UnifyResponse<PageVO<BookPureVO>> getBookByInfo(BookBO book) {
+        UnifyResponse<PageVO<BookPureVO>> us = new UnifyResponse<>();
+        PageVO<BookPureVO> books = bookService.getBookListByInfo(book);
         us.setContent(books);
         return us;
+    }
+
+    /**
+     * 修改电子书信息
+     *
+     * @param operationBO
+     * @return
+     */
+    @PutMapping("/edit")
+    public UnifyResponse updateBook(@RequestBody BookOperationBO operationBO) {
+        bookService.updateBook(operationBO);
+        return new UnifyResponse();
+    }
+
+    /**
+     * 新增电子书
+     *
+     * @param operationBO
+     * @return
+     */
+    @PostMapping("/add")
+    public UnifyResponse addBook(@RequestBody BookOperationBO operationBO) {
+        bookService.insertBook(operationBO);
+        return new UnifyResponse();
+    }
+
+    /**
+     * 删除电子书信息
+     *
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/remove/{id}")
+    public UnifyResponse deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
+        return new UnifyResponse();
     }
 
 }
