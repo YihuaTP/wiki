@@ -1,0 +1,29 @@
+package com.kong.wiki.exception;
+
+import com.kong.wiki.enums.BusinessExceptionEnum;
+
+public class BusinessException extends RuntimeException{
+
+    private BusinessExceptionEnum code;
+
+    public BusinessException (BusinessExceptionEnum code) {
+        super(code.getDesc());
+        this.code = code;
+    }
+
+    public BusinessExceptionEnum getCode() {
+        return code;
+    }
+
+    public void setCode(BusinessExceptionEnum code) {
+        this.code = code;
+    }
+
+    /**
+     * 不写入堆栈信息，提高性能
+     */
+    @Override
+    public Throwable fillInStackTrace() {
+        return this;
+    }
+}

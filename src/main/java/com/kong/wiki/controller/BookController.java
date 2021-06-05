@@ -53,7 +53,8 @@ public class BookController {
      * @return
      */
     @PostMapping("/add")
-    public UnifyResponse addBook(@RequestBody BookOperationBO operationBO) {
+    public UnifyResponse addBook(@Valid @RequestBody BookOperationBO operationBO) {
+        String name = operationBO.getName();
         bookService.insertBook(operationBO);
         return new UnifyResponse();
     }
