@@ -8,6 +8,8 @@ import com.kong.wiki.vo.BookPureVO;
 import com.kong.wiki.vo.PageVO;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/book")
 public class BookController {
@@ -24,8 +26,8 @@ public class BookController {
      * @param book
      * @return
      */
-    @GetMapping("/info")
-    public UnifyResponse<PageVO<BookPureVO>> getBookByInfo(BookBO book) {
+    @GetMapping("/list")
+    public UnifyResponse<PageVO<BookPureVO>> getBookByInfo(@Valid BookBO book) {
         UnifyResponse<PageVO<BookPureVO>> us = new UnifyResponse<>();
         PageVO<BookPureVO> books = bookService.getBookListByInfo(book);
         us.setContent(books);

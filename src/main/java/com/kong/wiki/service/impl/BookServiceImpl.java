@@ -43,16 +43,16 @@ public class BookServiceImpl implements BookService {
         EbookExample.Criteria ebookExampleCriteria = ebookExample.createCriteria();
         // 如果有电子书名称信息，则根据名称信息模糊查询
         if (!(ObjectUtils.isEmpty(book.getName()))) {
-            // 按照名称模糊查询
             ebookExampleCriteria.andNameLike("%" + book.getName() + "%");
         }
+
+        // 判断前端是否传递分页信息，如果传递则取前端数据，如果没有则使用默认数据
         if (ObjectUtils.isEmpty(book.getPage())) {
-            // 前端没有传参数，默认查询所有的电子书
             PageHelper.startPage(1, 100);
         } else {
-            // 进行分页查询配置
             PageHelper.startPage(book.getPage(), book.getSize());
         }
+
         // 初始化返回集合列表
         List<BookPureVO> list = new ArrayList<>();
         List<Ebook> books = bookMapper.selectByExample(ebookExample);
@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
             BeanUtils.copyProperties(ebook, bookPureVO);
             list.add(bookPureVO);
         }
+
         // 初始化返回的page对象
         PageInfo<Ebook> pageInfo = new PageInfo<>(books);
         long total = pageInfo.getTotal();
