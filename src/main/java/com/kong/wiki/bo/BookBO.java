@@ -12,4 +12,6 @@ public class BookBO extends PageBO{
 
     private String name;
 
+    private Long category2Id;
+
 }

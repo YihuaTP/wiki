@@ -41,9 +41,15 @@ public class BookServiceImpl implements BookService {
         // 组织条件对象
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria ebookExampleCriteria = ebookExample.createCriteria();
+
         // 如果有电子书名称信息，则根据名称信息模糊查询
         if (!(ObjectUtils.isEmpty(book.getName()))) {
             ebookExampleCriteria.andNameLike("%" + book.getName() + "%");
+        }
+
+        // 根据电子书的二级分类查询该类目下的信息
+        if (!(ObjectUtils.isEmpty(book.getCategory2Id()))) {
+            ebookExampleCriteria.andCategory2IdEqualTo(book.getCategory2Id());
         }
 
         // 判断前端是否传递分页信息，如果传递则取前端数据，如果没有则使用默认数据
